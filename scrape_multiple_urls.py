@@ -1,7 +1,7 @@
 
 """Gets the user to enter one or more URLs to be scraped, very imperfectly checks whether a URL was entered, scrapes the HTML from the webpage(s), saves each page's HTML to a separate .html file """
+
 import requests, bs4
-urls = ["https://www.charitycomms.org.uk/my-career/sector-jobs", "https://openrightsgroup.org"]
 
 def getURLs():
     """Gets the user to enter one or more URLs to be scraped, very imperfectly checks whether a URL was entered"""
