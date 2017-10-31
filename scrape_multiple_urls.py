@@ -9,7 +9,7 @@ def getURLs():
     userInput = None
     while not savedUserInput: #When no URL has been entered, ask the user to enter a URL
         userInput = input("Enter a full URL (starting with http:// or https://) to get the HTML for that webpage.\n")
-        while savedUserInput.startswith('http') == False: #Imperfectly checks whether the user entered a full URL and tells the user to enter a full URL if they didn't
+        while userInput.startswith('http') == False: #Imperfectly checks whether the user entered a full URL and tells the user to enter a full URL if they didn't
             userInput = input("That wasn't a URL. Enter a full URL to get the HTML for that webpage.\n")
         savedUserInput.append(userInput) #Save the URL to be scraped later
 
@@ -21,7 +21,7 @@ def getURLs():
             while userInput.startswith('http') == False: #Imperfectly checks whether the user entered a full URL and tells the user to enter a full URL if they didn't
                 userInput = input("That wasn't a URL. Enter a full URL or just press Return if you're finished.\n")
             savedUserInput.append(userInput) #Save the URL to be scraped later
-    return urls
+    return savedUserInput
 urls = getURLs()
 
 def getHTML():
