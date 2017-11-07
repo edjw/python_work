@@ -25,9 +25,9 @@ job_descriptions_stripped = []
 job_details_stripped = []
 final_output = [] # And this is where the final output will go
 
-job_divs = webpage_html.select("#all .job .col-sm-9")
+job_divs = webpage_html.select("#all .job .col-sm-9") #making a variable for the common container for info I want to scrape
 
-for job_div in job_divs:
+for job_div in job_divs: #iterate through the containers and select info for all of them
     job_titles = job_div.select("h3 a")
     job_links = job_div.select("h3 a")
     job_descriptions = job_div.select("p:nth-of-type(2)")
@@ -38,7 +38,7 @@ for job_div in job_divs:
         job_titles_stripped.append(job_title) # puts stripped HTML into stripped lists
 
     for job_link in job_links:
-        job_link = job_link['href']
+        job_link = job_link['href'] #to get the url that something links to
         job_links_stripped.append(job_link)
 
     for job_description in job_descriptions:
@@ -52,7 +52,7 @@ for job_div in job_divs:
         job_detail = " ".join(job_detail.split())
         job_details_stripped.append(job_detail)
 
-for i in range(len(job_divs)):
+for i in range(len(job_divs)): #get the job title, description etc in order and put them all together inside final_output
     output = str(job_titles_stripped[i]) + "\n" + str(job_links_stripped[i]) + "\n" + str(job_descriptions_stripped[i]) + "\n" + str(job_details_stripped[i]+ "\n\n")
     final_output.append(output)
 
