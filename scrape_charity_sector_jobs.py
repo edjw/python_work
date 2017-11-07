@@ -1,4 +1,4 @@
-'''Scrapes Charity Comms Sector Jobs'''
+'''Scrapes Charity Comms Sector Jobs. For personal use. Happy to take down.'''
 
 import requests
 from bs4 import BeautifulSoup
@@ -61,7 +61,7 @@ for i in range(len(job_divs)):
     final_output_html.append(output_html)
 
 # Uncomment this to save output as local .txt file
-# 
+#
 # with open("output.txt", 'w') as file_object:
 #     for i in range(len(job_divs)):
 #         file_object.write(str(job_titles_stripped[i]) + "\n" + str(job_links_stripped[i]) + "\n" + str(job_descriptions_stripped[i]) + "\n" + str(job_details_stripped[i]+ "\n\n"))
