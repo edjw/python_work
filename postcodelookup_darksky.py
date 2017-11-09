@@ -53,7 +53,7 @@ latitude_longitude = postcodeLookup(postcode)
 
 def openDarkSky(latitude_longitude):
     """ Open up darksky.net with the latitude and longitude already in there """
-    webbrowser.open('https://darksky.net/forecast/' + latitude_longitude + "/uk224/en")
+    webbrowser.open('https://darksky.net/forecast/' + latitude_longitude + "/uk212/en")
 openDarkSky(latitude_longitude)
 
 
