@@ -1,3 +1,5 @@
+import requests, webbrowser
+
 """
 * Asks for a UK postcode
 * uses postcodes.io to validate that postcode
@@ -14,7 +16,7 @@ todo
 """
 Learnt: requests, using an API, returning values from a function, parsing JSON in python, input prompts, prompting input after invalid user response, confidence!
 """
-import requests, webbrowser
+
 
 def getUserPostcode():
     """ Get the user to submit a UK postcode """
