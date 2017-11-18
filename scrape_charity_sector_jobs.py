@@ -1,85 +1,44 @@
 '''Scrapes Charity Comms Sector Jobs. For personal use. Happy to take down.'''
 
-import requests
+from requests import get, post
 from bs4 import BeautifulSoup
+import html2text
 
-# Use this if you want live scraping
-#
 url = "https://www.charitycomms.org.uk/my-career/sector-jobs"
-res = requests.get(url)
-res.raise_for_status()
+res = get(url)
 webpage_html = BeautifulSoup(res.text, 'html.parser')
-#
-#
-# Or use this below if you already have a local HTML file
-#
-#
-# with open ("jobs.html") as workingfile:
-#    webpage_html = BeautifulSoup(workingfile, 'html.parser')
-#
-#
 
-job_titles_stripped = [] #We'll put stripped HTML into these lists
-job_links_stripped = []
-job_descriptions_stripped = []
-job_details_stripped = []
-final_output_text = [] # And this is where the final output will go
-final_output_html = []
+jobs = webpage_html.select("#all > .job > .row > .col-sm-9")
 
-job_divs = webpage_html.select("#all .job .col-sm-9")
+jobs_string_html = ""
 
-for job_div in job_divs:
-    job_titles = job_div.select("h3 a")
-    job_links = job_div.select("h3 a")
-    job_descriptions = job_div.select("p:nth-of-type(2)")
-    job_details = job_div.select("p:nth-of-type(3)")
+for job in jobs:
+    job = str(job)
+    jobs_string_html = jobs_string_html + job
 
-    for job_title in job_titles:
-        job_title = job_title.get_text() # get_text strips html tags like <p>text</p>
-        job_titles_stripped.append(job_title) # puts stripped HTML into stripped lists
+jobs_string_html = " ".join(jobs_string_html.split())
+jobs_string_html = jobs_string_html.replace("<p><p>", "<p>")
+jobs_string_html = jobs_string_html.replace("</p> </p>", "</p>")
+jobs_string_html = jobs_string_html.replace(" class=\"col-sm-9\"", "")
+jobs_string_html = jobs_string_html.replace("<div>", "")
+jobs_string_html = jobs_string_html.replace("</div>", "")
 
-    for job_link in job_links:
-        job_link = job_link['href']
-        job_links_stripped.append(job_link)
+jobs_string_text = html2text.html2text(jobs_string_html)
 
-    for job_description in job_descriptions:
-        job_description = job_description.get_text()
-        # removes multiple spaces in the middle or around this data
-        job_description = " ".join(job_description.split())
-        job_descriptions_stripped.append(job_description)
-
-    for job_detail in job_details:
-        job_detail = job_detail.get_text()
-        job_detail = " ".join(job_detail.split())
-        job_details_stripped.append(job_detail)
-
-for i in range(len(job_divs)):
-    output = str(job_titles_stripped[i]) + "\n" + str(job_links_stripped[i]) + "\n" + str(job_descriptions_stripped[i]) + "\n" + str(job_details_stripped[i]+ "\n\n")
-    final_output_text.append(output)
-
-    output_html = "<strong>" + str(job_titles_stripped[i]) + "</strong>" + "<br>" + str(job_links_stripped[i]) + "<br>" + str(job_descriptions_stripped[i]) + "<br>" + "<strong>" + str(job_details_stripped[i] + "</strong>" + "<br><br>")
-    final_output_html.append(output_html)
-
-# Uncomment this to save output as local .txt file
-#
-# with open("output.txt", 'w') as file_object:
-#     for i in range(len(job_divs)):
-#         file_object.write(str(job_titles_stripped[i]) + "\n" + str(job_links_stripped[i]) + "\n" + str(job_descriptions_stripped[i]) + "\n" + str(job_details_stripped[i]+ "\n\n"))
-# file_object.close()
 
 def send_email():
     """Sends email using Mailgun"""
     email_data = {
-        "from": "Name <mail@mailgun.domain.tld>",
-        "to": ["name@domain.tld"],
-        "subject": "subject line",
-        "text": final_output_text,
-        "html": final_output_html
+        "from": "Charity Comms Jobs <ed@mailgun.edjw.co.uk>",
+        "to": ["ed@johnsonwilliams.co.uk"],
+        "subject": "This week's Charity Comms Jobs",
+        "text": jobs_string_text,
+        "html": jobs_string_html
     }
 
-    return requests.post(
-        "https://api.mailgun.net/v3/mailgun.domain.tld/messages",
-        auth=("api", "$MAILGUN_API_KEY"),
+    return post(
+        "https://api.mailgun.net/v3/mailgun.edjw.co.uk/messages",
+        auth=("api", "key-73f69b0422dc19357ae1ad473269f617"),
         data=email_data)
 
 send_email()

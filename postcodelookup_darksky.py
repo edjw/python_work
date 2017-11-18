@@ -10,7 +10,9 @@ import requests, webbrowser
 
 """
 todo
-1.use darksky api and do something else with this info
+1. Make a simple UI for this
+2. Make it executable
+3.use darksky api and do something else with this info
 """
 
 """
