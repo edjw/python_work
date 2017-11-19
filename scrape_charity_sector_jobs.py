@@ -29,16 +29,16 @@ jobs_string_text = html2text.html2text(jobs_string_html)
 def send_email():
     """Sends email using Mailgun"""
     email_data = {
-        "from": "Charity Comms Jobs <ed@mailgun.edjw.co.uk>",
-        "to": ["ed@johnsonwilliams.co.uk"],
+        "from": "Charity Comms Jobs <name@mailgun.domain.tld>",
+        "to": ["name@domain.tld"],
         "subject": "This week's Charity Comms Jobs",
         "text": jobs_string_text,
         "html": jobs_string_html
     }
 
     return post(
-        "https://api.mailgun.net/v3/mailgun.edjw.co.uk/messages",
-        auth=("api", "key-73f69b0422dc19357ae1ad473269f617"),
+        "https://api.mailgun.net/v3/mailgun.domain.tld/messages",
+        auth=("api", "API_KEY"),
         data=email_data)
 
 send_email()
