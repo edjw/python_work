@@ -1,9 +1,11 @@
 # Scrape W4MPJobs
+
 This uses CasperJS on top of PhantomJS to scrape the HTML of W4MPJobs, then Python and Beautiful Soup to parse the HTML and send what I'm interested in over email.
 
 <http://www.w4mpjobs.org/SearchJobs.aspx?search=nmwandabove>
 
 ## PhantomJS and CasperJS
+
 W4MPJobs uses ASPX which I can't get Beautiful Soup to handle.
 
 Also, as this is running on Raspberry Pi and no armhf build of Selenium is available, I have to use PhantomJS.
@@ -19,7 +21,7 @@ scraper.js opens the file saved by CasperJS, cleans up the html, makes a plainte
 
 ## Crontab
 
-Run it regularly with cron. 
+Run it regularly with cron.
 
 `crontab -e`
 
